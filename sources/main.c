@@ -2,8 +2,8 @@
 
 int	main(int argc, char **argv)
 {
-	void	*mlx;
+	int		**matrix;
 
-	mlx = mlx_init();
+	matrix = read_map(argv);
 	return (0);
 }

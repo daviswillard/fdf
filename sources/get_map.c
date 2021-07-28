@@ -11,7 +11,7 @@ static void	map_x(int *x_axis, char *line)
 	{
 		if (isd)
 		{
-			while (*lin != ' ' || *lin != '\0')
+			while (ft_isdigit(*lin))
 				lin++;
 			(*x_axis)++;
 		}
@@ -39,16 +39,53 @@ static char	*read_line(int *x_axis, int *y_axis, int fd)
 			exit(-2);
 		(*y_axis)++;
 		free(temp);
-		temp = NULL;
 		control = get_next_line(fd, &line);
 	}
 	temp = buf;
 	buf = ft_strjoin(buf, line);
 	free(temp);
-	(*y_axis)++;
 	if (buf)
 		return (buf);
 	exit(-2);
+}
+
+static void	skip(char **line)
+{
+	if (**line == ' ')
+		(*line)++;
+	if (**line == '-')
+		(*line)++;
+	while (ft_isdigit(**line))
+		(*line)++;
+}
+
+static int	**assign_matrix(int x_axis, int y_axis, char *line)
+{
+	int		integer;
+	int		x_temp;
+	int		y_temp;
+	int		**ret;
+	char	*temp;
+
+	ret = malloc(sizeof(*ret) * (x_axis + y_axis) + 1);
+	if (!ret)
+		exit (-3);
+	y_temp = 0;
+	while (y_temp < y_axis)
+	{
+		x_temp = 0;
+		ret[y_temp] = malloc(sizeof(**ret) * x_axis);
+		while (x_temp < x_axis)
+		{
+			integer = ft_atoi(line);
+			ret[y_temp][x_temp] = integer;
+			x_temp++;
+			skip(&line);
+		}
+		y_temp++;
+	}
+	ret[y_temp] = NULL;
+	return (ret);
 }
 
 int	**read_map(char **argv)
@@ -66,5 +103,6 @@ int	**read_map(char **argv)
 		exit(-1);
 	line = read_line(&x_axis, &y_axis, fd);
 	close(fd);
-	return (**ret);
+	ret = assign_matrix(x_axis, y_axis, line);
+	return (ret);
 }

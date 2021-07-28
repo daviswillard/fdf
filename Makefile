@@ -2,7 +2,8 @@ NAME = fdf
 LIBFT = libft.a
 LIB_DIR = ./libft/
 CFLAGS = -Wall -Wextra -Werror -MMD
-SRCS = sources/main.c	sources/get_map.c .
+SRCS = sources/main.c	sources/get_map.c \
+		sources/get_next_line.c
 OBJS = ${SRCS:.c=.o}
 DEP = $(SRCS:.c=.d)
 all: $(LIBFT) $(NAME)
