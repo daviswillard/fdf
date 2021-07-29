@@ -64,7 +64,7 @@ static int	check_tail(char **line, char **tail, char **buf)
 
 int	get_next_line(int fd, char **line)
 {
-	static char		*tail[10000];
+	static char		*tail[4096];
 	char			*buf;
 	size_t			bytes;
 
