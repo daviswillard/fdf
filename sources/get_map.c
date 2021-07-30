@@ -87,20 +87,23 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 	return (ret);
 }
 
-int	**read_map(char **argv, int *y_axis)
+int	**read_map(char **argv, param **grid)
 {
-	int		**ret;
-	int		x_axis;
-	int		fd;
-	char	*line;
+	int			**ret;
+	int			x_axis;
+	int			y_axis;
+	int			fd;
+	char		*line;
 
 	x_axis = 0;
-	*y_axis = 0;
+	y_axis = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(-1);
-	line = read_line(&x_axis, y_axis, fd);
+	line = read_line(&x_axis, &y_axis, fd);
 	close(fd);
-	ret = assign_matrix(x_axis, *y_axis, line);
+	ret = assign_matrix(x_axis, y_axis, line);
+	(*grid)->dim_x = x_axis;
+	(*grid)->dim_y = y_axis;
 	return (ret);
 }

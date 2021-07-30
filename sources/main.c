@@ -1,18 +1,19 @@
 #include "../fdf.h"
 
+static void	param_init(param **grid)
+{
+	
+}
+
 int	main(int argc, char **argv)
 {
 	int		**matrix;
 	int		y;
-	void	*mlx;
-	void	*mlx_win;
+	param 	*grid;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!")
 	if (argc != 2)
 		return (-1);
-	matrix = read_map(argv, &y);
-	term(matrix, mlx, mlx_win, y);
-	mlx_loop(mlx);
+	matrix = read_map(argv, &grid);
+	matrix_works(matrix, y);
 	return (0);
 }

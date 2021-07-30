@@ -10,8 +10,19 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 
-int		**read_map(char **argv, int *y_axis);
+typedef struct	s_fdf
+{
+	int		dim_x;
+	int		dim_y;
+	int		cell_x;
+	int		cell_y;
+	float	x;
+	float	y;
+	float	z;
+}				param;
 
-void	term(int **matrix, void *mlx, void *mlx_win, int y);
+int		**read_map(char **argv, param **grid);
+
+void		matrix_works(int **matrix, int y);
 
 #endif
