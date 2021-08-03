@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/03 16:46:47 by dwillard          #+#    #+#             */
+/*   Updated: 2021/08/03 16:46:48 by dwillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 static void	map_x(int *x_axis, char *line)
@@ -87,7 +99,7 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 	return (ret);
 }
 
-int	**read_map(char **argv, param **grid)
+int	**read_map(char **argv, t_param **grid)
 {
 	int			**ret;
 	int			x_axis;
