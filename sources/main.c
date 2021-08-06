@@ -12,22 +12,58 @@
 
 #include "../fdf.h"
 
+static void	ass_coord(t_param **grid, int call, int **matrix)
+{
+	float	temp_x;
+	float	temp_y;
+	float	temp_x1;
+	float	temp_y1;
+
+	if (call == 1)
+	{
+		(*grid)->y = (*grid)->cur_y;
+		(*grid)->y1 = (*grid)->cur_y;
+		(*grid)->x = (*grid)->cur_x;
+		(*grid)->x1 = (*grid)->cur_x + 1;
+		(*grid)->z = matrix[(*grid)->cur_y][(*grid)->cur_x];
+		(*grid)->z1 = matrix[(*grid)->cur_y][(*grid)->cur_x + 1];
+	}
+	if (call == 2)
+	{
+		(*grid)->y = (*grid)->cur_y;
+		(*grid)->y1 = (*grid)->cur_y + 1;
+		(*grid)->x = (*grid)->cur_x;
+		(*grid)->x1 = (*grid)->cur_x;
+		(*grid)->z = matrix[(*grid)->cur_y][(*grid)->cur_x];
+		(*grid)->z1 = matrix[(*grid)->cur_y + 1][(*grid)->cur_x];
+	}
+	temp_x = (*grid)->x;
+	temp_y = (*grid)->y;
+	temp_x1 = (*grid)->x1;
+	temp_y1 = (*grid)->y1;
+	(*grid)->x = (temp_x + temp_y) * cos(PI / 4);
+	(*grid)->y = (temp_x - temp_y) * cos(PI / 4) - (*grid)->z;
+	(*grid)->x1 = (temp_x1 + temp_y1) * cos(PI / 4);
+	(*grid)->y1 = (temp_x1 - temp_y1) * cos(PI / 4) - (*grid)->z1;
+}
+
 static void	read_matrix(t_param **grid, int **matrix)
 {
-	while ((*grid)->cur_y < (*grid)->dim_y)
+	while ((*grid)->cur_y < (*grid)->dim_y - 1)
 	{
+		printf("cur_y 	%d\n", (*grid)->cur_y);
 		(*grid)->cur_x = 0;
-		while ((*grid)->cur_x < (*grid)->dim_x)
+		(*grid)->y = (*grid)->cur_y;
+		while ((*grid)->cur_x < (*grid)->dim_x - 1)
 		{
-			if ((*grid)->cur_x < (*grid)->dim_x - 1)
-			{
-				drawing_lines(*grid);
-			}
-			if ((*grid)->cur_y < (*grid)->dim_y - 1)
-			{
-				drawing_lines(*grid);
-			}
+			printf("cur_x 	%d\n", (*grid)->cur_x);
+			ass_coord(grid, 1, matrix);
+			drawing_lines(*grid);
+			ass_coord(grid, 2, matrix);
+			drawing_lines(*grid);
+			(*grid)->cur_x++;
 		}
+		(*grid)->cur_y++;
 	}
 }
 
@@ -47,6 +83,7 @@ static void	param_init(t_param **grid)
 	(*grid)->z = 0;
 	(*grid)->x1 = 0;
 	(*grid)->y1 = 0;
+	(*grid)->z1 = 0;
 }
 
 int	main(int argc, char **argv)
@@ -55,12 +92,16 @@ int	main(int argc, char **argv)
 	t_param	*grid;
 
 	if (argc != 2)
+	{
+		ft_putstr_fd("wrong number of arguments\n", 1);
 		return (-1);
+	}
 	param_init(&grid);
 	matrix = read_map(argv, &grid);
 	grid->mlx = mlx_init();
-	matrix_works(&grid);
+	matrix_works(&grid, matrix);
 	grid->mlx_win = mlx_new_window(grid->mlx, grid->win_x, grid->win_y, "FdF");
 	read_matrix(&grid, matrix);
+	mlx_loop(grid->mlx);
 	return (0);
 }
