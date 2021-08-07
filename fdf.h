@@ -14,7 +14,7 @@ typedef struct s_fdf
 {
 	int		dim_x;
 	int		dim_y;
-	int		dim_z;
+	int		dz;
 	int		cur_x;
 	int		cur_y;
 	int		cell_x;
@@ -25,8 +25,8 @@ typedef struct s_fdf
 	float	x1;
 	float	y;
 	float	y1;
-	int		z;
-	int		z1;
+	float	z;
+	float	z1;
 	void	*mlx;
 	void	*mlx_win;
 }				t_param;
@@ -36,5 +36,7 @@ int		**read_map(char **argv, t_param **grid);
 void	matrix_works(t_param **grid, int **matrix);
 
 void	drawing_lines(t_param *grid);
+
+void	basis(t_param **grid);
 
 #endif

@@ -12,39 +12,30 @@
 
 #include "../fdf.h"
 
-static void	ass_coord(t_param **grid, int call, int **matrix)
+static void	helper(t_param **grid, int **matrix)
 {
-	float	temp_x;
-	float	temp_y;
-	float	temp_x1;
-	float	temp_y1;
+	(*grid)->y = (*grid)->cur_y;
+	(*grid)->y1 = (*grid)->cur_y;
+	(*grid)->x = (*grid)->cur_x;
+	(*grid)->x1 = (*grid)->cur_x;
+	(*grid)->z = matrix[(*grid)->cur_y][(*grid)->cur_x];
+	(*grid)->z1 = matrix[(*grid)->cur_y][(*grid)->cur_x];
+}
 
+static void	assign_coord(t_param **grid, int call, int **matrix)
+{
+	helper(grid, matrix);
 	if (call == 1)
 	{
-		(*grid)->y = (*grid)->cur_y;
-		(*grid)->y1 = (*grid)->cur_y;
-		(*grid)->x = (*grid)->cur_x;
 		(*grid)->x1 = (*grid)->cur_x + 1;
-		(*grid)->z = matrix[(*grid)->cur_y][(*grid)->cur_x];
 		(*grid)->z1 = matrix[(*grid)->cur_y][(*grid)->cur_x + 1];
 	}
 	if (call == 2)
 	{
-		(*grid)->y = (*grid)->cur_y;
 		(*grid)->y1 = (*grid)->cur_y + 1;
-		(*grid)->x = (*grid)->cur_x;
-		(*grid)->x1 = (*grid)->cur_x;
-		(*grid)->z = matrix[(*grid)->cur_y][(*grid)->cur_x];
 		(*grid)->z1 = matrix[(*grid)->cur_y + 1][(*grid)->cur_x];
 	}
-	temp_x = (*grid)->x;
-	temp_y = (*grid)->y;
-	temp_x1 = (*grid)->x1;
-	temp_y1 = (*grid)->y1;
-	(*grid)->x = (temp_x + temp_y) * cos(PI / 4);
-	(*grid)->y = (temp_x - temp_y) * cos(PI / 4) - (*grid)->z;
-	(*grid)->x1 = (temp_x1 + temp_y1) * cos(PI / 4);
-	(*grid)->y1 = (temp_x1 - temp_y1) * cos(PI / 4) - (*grid)->z1;
+	basis(grid);
 }
 
 static void	read_matrix(t_param **grid, int **matrix)
@@ -57,11 +48,13 @@ static void	read_matrix(t_param **grid, int **matrix)
 		while ((*grid)->cur_x < (*grid)->dim_x - 1)
 		{
 			printf("cur_x 	%d\n", (*grid)->cur_x);
-			ass_coord(grid, 1, matrix);
+			assign_coord(grid, 1, matrix);
 			drawing_lines(*grid);
-			ass_coord(grid, 2, matrix);
+			assign_coord(grid, 2, matrix);
 			drawing_lines(*grid);
 			(*grid)->cur_x++;
+			assign_coord(grid, 2, matrix);
+			drawing_lines(*grid);
 		}
 		(*grid)->cur_y++;
 	}
