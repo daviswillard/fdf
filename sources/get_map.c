@@ -33,42 +33,45 @@ static void	map_x(int *x_axis, char *line)
 	}
 }
 
-static char	*read_line(int *x_axis, int *y_axis, int fd)
+static char	*read_line(int *x_axis, int *y_axis, int fd, char *buf)
 {
 	char	*line;
-	char	*buf;
 	char	*temp;
 	int		control;
 
-	buf = ft_strdup("");
 	control = get_next_line(fd, &line);
 	map_x(x_axis, line);
 	while (control)
 	{
 		temp = buf;
-		buf = ft_strjoin(buf, line);
+		buf = ft_strjoin_fdf(buf, line);
 		if (!buf || control < 0)
 			exit(-2);
 		(*y_axis)++;
 		free(temp);
+		free(line);
 		control = get_next_line(fd, &line);
 	}
 	temp = buf;
-	buf = ft_strjoin(buf, line);
+	buf = ft_strjoin_fdf(buf, line);
 	free(temp);
-	if (buf)
+	free(line);
+	if (buf && control >= 0)
 		return (buf);
 	exit(-2);
 }
 
 static void	skip(char **line)
 {
-	if (**line == ' ')
+	while (**line == ' ' || **line == '\n')
 		(*line)++;
 	if (**line == '-')
 		(*line)++;
 	while (ft_isdigit(**line))
 		(*line)++;
+	if (**line == ',')
+		while (**line != ' ')
+			(*line)++;
 }
 
 static int	**assign_matrix(int x_axis, int y_axis, char *line)
@@ -82,6 +85,7 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 	if (!ret)
 		exit (-3);
 	y_temp = 0;
+	printf("%s\n", line);
 	while (y_temp < y_axis)
 	{
 		x_temp = 0;
@@ -89,6 +93,8 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 		while (x_temp < x_axis)
 		{
 			integer = ft_atoi(line);
+			printf("integer (x;y):	%d (%d;%d)\n", integer, x_temp, y_temp);
+			printf("%s\n", line);
 			ret[y_temp][x_temp] = integer;
 			x_temp++;
 			skip(&line);
@@ -112,9 +118,13 @@ int	**read_map(char **argv, t_param **grid)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(-1);
-	line = read_line(&x_axis, &y_axis, fd);
+	line = ft_strdup("");
+	if (!line)
+		exit(-1);
+	line = read_line(&x_axis, &y_axis, fd, line);
 	close(fd);
 	ret = assign_matrix(x_axis, y_axis, line);
+	free(line);
 	(*grid)->dim_x = x_axis;
 	(*grid)->dim_y = y_axis;
 	return (ret);

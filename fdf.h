@@ -27,6 +27,7 @@ typedef struct s_fdf
 	float	y1;
 	float	z;
 	float	z1;
+	float	phi;
 	void	*mlx;
 	void	*mlx_win;
 }				t_param;
@@ -38,5 +39,7 @@ void	matrix_works(t_param **grid, int **matrix);
 void	drawing_lines(t_param *grid);
 
 void	basis(t_param **grid);
+
+char	*ft_strjoin_fdf(char *s1, char *s2);
 
 #endif

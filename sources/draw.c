@@ -45,14 +45,10 @@ void	drawing_lines(t_param *grid)
 	norm = maxim(absol(dx), absol(dy));
 	dx /= norm;
 	dy /= norm;
-	printf("\ndx:	%f, dy	%f\n", dx, dy);
-	printf("\nx:	%f, y	%f\n", x, y);
-	printf("\nx1:	%f, y1	%f\n\n\n\n", grid->x1, grid->y1);
 	while ((int)x != (int)grid->x1 && (int)y != (int)grid->y1)
 	{
-		mlx_pixel_put(grid->mlx, grid->mlx_win, x * 1.2 + 100, y * 0.6 + 250,
+		mlx_pixel_put(grid->mlx, grid->mlx_win, x + 200, y * 0.6 + 750,
 			0xFFFFFF);
-		printf("x:	%f, y:	%f\n", x, y);
 		x += dx;
 		y += dy;
 	}

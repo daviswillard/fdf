@@ -42,12 +42,10 @@ static void	read_matrix(t_param **grid, int **matrix)
 {
 	while ((*grid)->cur_y < (*grid)->dim_y - 1)
 	{
-		printf("cur_y 	%d\n", (*grid)->cur_y);
 		(*grid)->cur_x = 0;
 		(*grid)->y = (*grid)->cur_y;
 		while ((*grid)->cur_x < (*grid)->dim_x - 1)
 		{
-			printf("cur_x 	%d\n", (*grid)->cur_x);
 			assign_coord(grid, 1, matrix);
 			drawing_lines(*grid);
 			assign_coord(grid, 2, matrix);
@@ -77,12 +75,16 @@ static void	param_init(t_param **grid)
 	(*grid)->x1 = 0;
 	(*grid)->y1 = 0;
 	(*grid)->z1 = 0;
+	(*grid)->phi = PI / 4;
 }
 
 int	main(int argc, char **argv)
 {
 	int		**matrix;
 	t_param	*grid;
+//	int		counter = 0;
+//	int		counter1;
+
 
 	if (argc != 2)
 	{
@@ -94,6 +96,17 @@ int	main(int argc, char **argv)
 	grid->mlx = mlx_init();
 	matrix_works(&grid, matrix);
 	grid->mlx_win = mlx_new_window(grid->mlx, grid->win_x, grid->win_y, "FdF");
+/*	while (counter < grid->dim_y)
+	{
+		counter1 = 0;
+		while (counter1 < grid->dim_x)
+		{
+			printf("x, y, matrix(x, y):	%d, %d, %d\n", counter1, counter,
+				   matrix[counter][counter1]);
+			counter1++;
+		}
+		counter++;
+	}*/
 	read_matrix(&grid, matrix);
 	mlx_loop(grid->mlx);
 	return (0);
