@@ -82,9 +82,6 @@ int	main(int argc, char **argv)
 {
 	int		**matrix;
 	t_param	*grid;
-//	int		counter = 0;
-//	int		counter1;
-
 
 	if (argc != 2)
 	{
@@ -96,17 +93,6 @@ int	main(int argc, char **argv)
 	grid->mlx = mlx_init();
 	matrix_works(&grid, matrix);
 	grid->mlx_win = mlx_new_window(grid->mlx, grid->win_x, grid->win_y, "FdF");
-/*	while (counter < grid->dim_y)
-	{
-		counter1 = 0;
-		while (counter1 < grid->dim_x)
-		{
-			printf("x, y, matrix(x, y):	%d, %d, %d\n", counter1, counter,
-				   matrix[counter][counter1]);
-			counter1++;
-		}
-		counter++;
-	}*/
 	read_matrix(&grid, matrix);
 	mlx_loop(grid->mlx);
 	return (0);

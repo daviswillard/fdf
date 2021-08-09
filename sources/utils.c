@@ -31,6 +31,11 @@ void	basis(t_param **grid)
 	(*grid)->y1 = -tx1 * sin(phi) + ty1 * cos(phi) - (*grid)->z1;
 }
 
+void	shift(t_param **grid)
+{
+	;
+}
+
 char	*ft_strjoin_fdf(char *s1, char *s2)
 {
 	int		cntr1;

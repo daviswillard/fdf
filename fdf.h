@@ -21,6 +21,8 @@ typedef struct s_fdf
 	int		cell_y;
 	int		win_x;
 	int		win_y;
+	int		shy;
+	int		shx;
 	float	x;
 	float	x1;
 	float	y;
@@ -33,6 +35,8 @@ typedef struct s_fdf
 }				t_param;
 
 int		**read_map(char **argv, t_param **grid);
+
+void	shift(t_param **grid);
 
 void	matrix_works(t_param **grid, int **matrix);
 

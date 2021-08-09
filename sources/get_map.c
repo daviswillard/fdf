@@ -85,7 +85,6 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 	if (!ret)
 		exit (-3);
 	y_temp = 0;
-	printf("%s\n", line);
 	while (y_temp < y_axis)
 	{
 		x_temp = 0;
@@ -93,8 +92,6 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 		while (x_temp < x_axis)
 		{
 			integer = ft_atoi(line);
-			printf("integer (x;y):	%d (%d;%d)\n", integer, x_temp, y_temp);
-			printf("%s\n", line);
 			ret[y_temp][x_temp] = integer;
 			x_temp++;
 			skip(&line);

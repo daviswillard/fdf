@@ -47,7 +47,7 @@ void	drawing_lines(t_param *grid)
 	dy /= norm;
 	while ((int)x != (int)grid->x1 && (int)y != (int)grid->y1)
 	{
-		mlx_pixel_put(grid->mlx, grid->mlx_win, x + 200, y * 0.6 + 750,
+		mlx_pixel_put(grid->mlx, grid->mlx_win, x + grid->shx, y + grid->shy,
 			0xFFFFFF);
 		x += dx;
 		y += dy;
