@@ -21,7 +21,7 @@ clean:
 	$(MAKE) clean -sC $(LIB_DIR)
 	rm -rf $(OBJS) $(DEP)
 fclean: clean
-	$(MAKE) clean -sC $(LIB_DIR)
+	$(MAKE) fclean -sC $(LIB_DIR)
 	rm -rf $(NAME).a $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
