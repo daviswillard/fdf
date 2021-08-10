@@ -22,7 +22,7 @@ static void	helper(t_param **grid, int **matrix)
 	(*grid)->z1 = matrix[(*grid)->cur_y][(*grid)->cur_x];
 }
 
-static void	assign_coord(t_param **grid, int call, int **matrix)
+void	assign_coord(t_param **grid, int call, int **matrix)
 {
 	helper(grid, matrix);
 	if (call == 1)
@@ -40,6 +40,8 @@ static void	assign_coord(t_param **grid, int call, int **matrix)
 
 static void	read_matrix(t_param **grid, int **matrix)
 {
+	shift(grid, matrix);
+	(*grid)->cur_y = 0;
 	while ((*grid)->cur_y < (*grid)->dim_y - 1)
 	{
 		(*grid)->cur_x = 0;

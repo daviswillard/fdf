@@ -47,8 +47,8 @@ void	drawing_lines(t_param *grid)
 	dy /= norm;
 	while ((int)x != (int)grid->x1 && (int)y != (int)grid->y1)
 	{
-		mlx_pixel_put(grid->mlx, grid->mlx_win, x + grid->shx, y + grid->shy,
-			0xFFFFFF);
+		mlx_pixel_put(grid->mlx, grid->mlx_win, x + grid->shx,
+			y * 0.5 + grid->shy, 0xFFFFFF);
 		x += dx;
 		y += dy;
 	}
@@ -72,35 +72,42 @@ static void	get_z_dim(t_param **grid, int **matrix)
 		}
 		j++;
 	}
-	if ((*grid)->dz * (*grid)->cell_y < (*grid)->dim_y)
-		(*grid)->dz = 1;
+	if ((*grid)->dz > (*grid)->dim_y + (*grid)->dim_x)
+	{
+		(*grid)->dz1 = (*grid)->dim_y + (*grid)->dim_x;
+		(*grid)->win_y *= 2;
+		if ((*grid)->win_y > 1250)
+			(*grid)->win_y = 1250;
+	}
+	else
+		(*grid)->dz1 = (*grid)->dz;
 }
 
 void	matrix_works(t_param **grid, int **matrix)
 {
 	if ((*grid)->dim_x <= 5)
 		(*grid)->win_x = 250;
-	else if ((*grid)->dim_x > 5 && (*grid)->dim_x < 20)
+	else if ((*grid)->dim_x > 5 && (*grid)->dim_x < 25)
 		(*grid)->win_x = (*grid)->dim_x * 50;
 	else
-		(*grid)->win_x = 1000;
+		(*grid)->win_x = 1250;
 	if ((*grid)->dim_y <= 5)
 		(*grid)->win_y = 250;
-	else if ((*grid)->dim_y > 5 && (*grid)->dim_y < 20)
+	else if ((*grid)->dim_y > 5 && (*grid)->dim_y < 25)
 		(*grid)->win_y = (*grid)->dim_y * 50;
 	else
-		(*grid)->win_y = 1000;
+		(*grid)->win_y = 1250;
 	if ((*grid)->dim_y < 50)
-		(*grid)->cell_y = 20;
-	else if ((*grid)->dim_y >= 50 && (*grid)->dim_y <= 200)
+		(*grid)->cell_y = 25;
+	else if ((*grid)->dim_y >= 50 && (*grid)->dim_y <= 310)
 		(*grid)->cell_y = (*grid)->win_y / (*grid)->dim_y;
 	else
-		(*grid)->cell_y = 4;
+		(*grid)->cell_y = 3;
 	if ((*grid)->dim_x < 50)
-		(*grid)->cell_x = 20;
-	else if ((*grid)->dim_x >= 50 && (*grid)->dim_x <= 200)
+		(*grid)->cell_x = 25;
+	else if ((*grid)->dim_x >= 50 && (*grid)->dim_x <= 310)
 		(*grid)->cell_x = (*grid)->win_x / (*grid)->dim_x;
 	else
-		(*grid)->cell_x = 4;
+		(*grid)->cell_x = 3;
 	get_z_dim(grid, matrix);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/10 20:11:32 by dwillard          #+#    #+#             */
+/*   Updated: 2021/08/10 20:11:35 by dwillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -14,7 +26,6 @@ typedef struct s_fdf
 {
 	int		dim_x;
 	int		dim_y;
-	int		dz;
 	int		cur_x;
 	int		cur_y;
 	int		cell_x;
@@ -23,6 +34,8 @@ typedef struct s_fdf
 	int		win_y;
 	int		shy;
 	int		shx;
+	int		dz;
+	float	dz1;
 	float	x;
 	float	x1;
 	float	y;
@@ -36,7 +49,7 @@ typedef struct s_fdf
 
 int		**read_map(char **argv, t_param **grid);
 
-void	shift(t_param **grid);
+void	shift(t_param **grid, int **matrix);
 
 void	matrix_works(t_param **grid, int **matrix);
 
@@ -45,5 +58,7 @@ void	drawing_lines(t_param *grid);
 void	basis(t_param **grid);
 
 char	*ft_strjoin_fdf(char *s1, char *s2);
+
+void	assign_coord(t_param **grid, int call, int **matrix);
 
 #endif

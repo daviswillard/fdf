@@ -12,6 +12,22 @@
 
 #include "../fdf.h"
 
+void	shift(t_param **grid, int **matrix)
+{
+	if ((*grid)->dim_x % 2)
+		(*grid)->cur_x = (*grid)->dim_x / 2 + 1;
+	else
+		(*grid)->cur_x = (*grid)->dim_x / 2;
+	if ((*grid)->dim_y % 2)
+		(*grid)->cur_y = (*grid)->dim_y / 2 + 1;
+	else
+		(*grid)->cur_y = (*grid)->dim_y / 2;
+	assign_coord(grid, 0, matrix);
+	(*grid)->shx = (*grid)->win_x / 2 - (*grid)->x * (*grid)->cell_x;
+	(*grid)->shy = (*grid)->win_y / 2 - ((*grid)->y + (*grid)->z)
+			* (*grid)->cell_y;
+}
+
 void	basis(t_param **grid)
 {
 	float	tx;
@@ -25,15 +41,12 @@ void	basis(t_param **grid)
 	ty = (*grid)->y;
 	tx1 = (*grid)->x1;
 	ty1 = (*grid)->y1;
+	(*grid)->z = (*grid)->z * (*grid)->dz1 / (*grid)->dz;
+	(*grid)->z1 = (*grid)->z1 * (*grid)->dz1 / (*grid)->dz;
 	(*grid)->x = tx * cos(phi) + ty * sin(phi);
 	(*grid)->y = -tx * sin(phi) + ty * cos(phi) - (*grid)->z;
 	(*grid)->x1 = tx1 * cos(phi) + ty1 * sin(phi);
 	(*grid)->y1 = -tx1 * sin(phi) + ty1 * cos(phi) - (*grid)->z1;
-}
-
-void	shift(t_param **grid)
-{
-	;
 }
 
 char	*ft_strjoin_fdf(char *s1, char *s2)
