@@ -12,24 +12,31 @@
 
 #include "../fdf.h"
 
-static void	map_x(int *x_axis, char *line)
+static void	map_x(int *x_axis, const char *line)
 {
-	char	*lin;
-	int		isd;
+	int			temp;
 
-	lin = line;
-	isd = ft_isdigit(*lin);
-	while (*lin != '\0')
+	temp = 0;
+	while (*line != '\0')
 	{
-		if (isd)
+		if (ft_isdigit(*line))
 		{
-			while (ft_isdigit(*lin))
-				lin++;
-			(*x_axis)++;
+			while (ft_isdigit(*line))
+				line++;
+			(temp)++;
 		}
-		while (!ft_isdigit(*lin) && *lin != '\0')
-			lin++;
-		isd = ft_isdigit(*lin);
+		if (*line == ',')
+			while (*line != ' ' && *line != '\0' && *line != '\n')
+				line++;
+		while (!ft_isdigit(*line) && *line != '\0')
+			line++;
+	}
+	if (*x_axis == 0)
+		*x_axis = temp;
+	else if (*x_axis != temp)
+	{
+		ft_putendl_fd("Found wrong line length. Exiting now.", 1);
+		exit(-3);
 	}
 }
 
@@ -40,9 +47,9 @@ static char	*read_line(int *x_axis, int *y_axis, int fd, char *buf)
 	int		control;
 
 	control = get_next_line(fd, &line);
-	map_x(x_axis, line);
 	while (control)
 	{
+		map_x(x_axis, line);
 		temp = buf;
 		buf = ft_strjoin_fdf(buf, line);
 		if (!buf || control < 0)
@@ -70,7 +77,7 @@ static void	skip(char **line)
 	while (ft_isdigit(**line))
 		(*line)++;
 	if (**line == ',')
-		while (**line != ' ')
+		while (**line != ' ' && **line != '\0')
 			(*line)++;
 }
 
@@ -120,6 +127,8 @@ int	**read_map(char **argv, t_param **grid)
 		exit(-1);
 	line = read_line(&x_axis, &y_axis, fd, line);
 	close(fd);
+	if (ft_strlen(line) && !y_axis)
+		y_axis++;
 	ret = assign_matrix(x_axis, y_axis, line);
 	free(line);
 	(*grid)->dim_x = x_axis;
