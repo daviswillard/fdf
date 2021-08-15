@@ -22,6 +22,15 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 
+typedef struct	s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
 typedef struct s_fdf
 {
 	int		dim_x;
@@ -47,13 +56,15 @@ typedef struct s_fdf
 	void	*mlx_win;
 }				t_param;
 
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
 int		**read_map(char **argv, t_param **grid);
 
 void	shift(t_param **grid, int **matrix);
 
 void	matrix_works(t_param **grid, int **matrix);
 
-void	drawing_lines(t_param *grid);
+void	drawing_lines(t_param *grid, t_data *img);
 
 void	basis(t_param **grid);
 

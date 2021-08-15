@@ -28,7 +28,7 @@ static float	maxim(float a, float b)
 		return (b);
 }
 
-void	drawing_lines(t_param *grid)
+void	drawing_lines(t_param *grid, t_data *img)
 {
 	float	dx;
 	float	dy;
@@ -47,8 +47,7 @@ void	drawing_lines(t_param *grid)
 	dy /= norm;
 	while ((int)x != (int)grid->x1 && (int)y != (int)grid->y1)
 	{
-		mlx_pixel_put(grid->mlx, grid->mlx_win, x + grid->shx,
-			y * 0.5 + grid->shy, 0xFFFFFF);
+		my_mlx_pixel_put(img, x + grid->shx, y * 0.5 + grid->shy, 0xFFFFFF);
 		x += dx;
 		y += dy;
 	}
