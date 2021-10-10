@@ -80,6 +80,12 @@ static void	param_init(t_param **grid)
 	(*grid)->phi = PI / 4;
 }
 
+int	key_hook(int keycode, t_param *grid)
+{
+	if (keycode == 53)
+		exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	int		**matrix;
@@ -101,6 +107,7 @@ int	main(int argc, char **argv)
 			&img.endian);
 	read_matrix(&grid, matrix, &img);
 	mlx_put_image_to_window(grid->mlx, grid->mlx_win, img.img, 0, 0);
+	mlx_key_hook(grid->mlx_win, key_hook, grid);
 	mlx_loop(grid->mlx);
 	return (0);
 }
