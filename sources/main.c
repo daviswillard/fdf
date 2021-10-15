@@ -80,12 +80,6 @@ static void	param_init(t_param **grid)
 	(*grid)->phi = PI / 4;
 }
 
-int	key_hook(int keycode, t_param *grid)
-{
-	if (keycode == 53)
-		exit(0);
-}
-
 int	main(int argc, char **argv)
 {
 	int		**matrix;

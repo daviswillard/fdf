@@ -9,7 +9,6 @@ add_executable(
         fdf.h
         sources/get_map.c
         sources/get_next_line.c
-        get_next_line.h
         libft/ft_atoi.c
         libft/ft_isdigit.c
         libft/ft_strchr.c
@@ -17,4 +16,7 @@ add_executable(
         libft/ft_strdup.c
         libft/ft_strjoin.c
         libft/ft_strlen.c
-        sources/draw.c sources/utils.c)
+        sources/draw.c
+        sources/utils.c
+        sources/hooksnwins.c
+                )

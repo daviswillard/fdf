@@ -14,13 +14,15 @@
 # define FDF_H
 
 # define PI 3.14159
+# define BUFFER_SIZE 100
 
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include "mlx/mlx.h"
 # include "libft/libft.h"
-# include "get_next_line.h"
 
 typedef struct	s_data
 {
@@ -71,5 +73,9 @@ void	basis(t_param **grid);
 char	*ft_strjoin_fdf(char *s1, char *s2);
 
 void	assign_coord(t_param **grid, int call, int **matrix);
+
+int		get_next_line(int fd, char **line);
+
+int		key_hook(int keycode, t_param *grid);
 
 #endif

@@ -1,7 +1,7 @@
 NAME = fdf
 LIBFT = libft.a
-LIB_DIR = ./libft/
-CFLAGS = -Wall -Wextra -Werror -MMD
+LIB_DIR = libft/
+CFLAGS = -Wall -Wextra -Werror -MMD -O2
 SRCS = 	sources/main.c				sources/get_map.c \
 		sources/get_next_line.c		sources/draw.c	  \
 		sources/utils.c
@@ -11,12 +11,9 @@ all: $(LIBFT) $(NAME)
 .c.o:
 	gcc $(CFLAGS) -Imlx -c $< -o $@
 $(LIBFT):
-	$(MAKE) all -C $(LIB_DIR)
-	$(MAKE) bonus -C $(LIB_DIR)
-$(NAME): $(OBJS)
-	cp $(LIB_DIR)$(LIBFT) $(NAME).a
-	ar -rcs $(NAME).a $(OBJS)
-	gcc $(CFLAGS) -Lmlx/ -lmlx -framework OpenGL -framework AppKit $(NAME).a -o $(NAME)
+	$(MAKE) all -sC $(LIB_DIR)
+$(NAME): $(OBJS) $(LIBFT)
+	gcc $(CFLAGS) $(OBJS) -Lmlx/ -lmlx -framework OpenGL -framework AppKit -L$(LIB_DIR) -lft -o $(NAME)
 clean:
 	$(MAKE) clean -sC $(LIB_DIR)
 	rm -rf $(OBJS) $(DEP)
