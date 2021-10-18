@@ -30,11 +30,11 @@ void	shift(t_param **grid, int **matrix)
 
 void	basis(t_param **grid)
 {
-	float	tx;
-	float	ty;
-	float	tx1;
-	float	ty1;
-	float	phi;
+	double	tx;
+	double	ty;
+	double	tx1;
+	double	ty1;
+	double	phi;
 
 	phi = (*grid)->phi;
 	tx = (*grid)->x;

@@ -101,7 +101,7 @@ int	main(int argc, char **argv)
 			&img.endian);
 	read_matrix(&grid, matrix, &img);
 	mlx_put_image_to_window(grid->mlx, grid->mlx_win, img.img, 0, 0);
-	mlx_key_hook(grid->mlx_win, key_hook, grid);
+	mlx_hook(grid->mlx_win, KEYPRESS, 0, key_hook, grid);
 	mlx_loop(grid->mlx);
 	return (0);
 }

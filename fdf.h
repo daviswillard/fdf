@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "mlx/mlx.h"
+# include "keycode_mac.h"
 # include "libft/libft.h"
 
 typedef struct	s_data
@@ -35,27 +36,27 @@ typedef struct	s_data
 
 typedef struct s_fdf
 {
+	void	*mlx;
+	void	*mlx_win;
 	int		dim_x;
 	int		dim_y;
 	int		cur_x;
 	int		cur_y;
-	int		cell_x;
-	int		cell_y;
 	int		win_x;
 	int		win_y;
-	int		shy;
-	int		shx;
-	int		dz;
-	float	dz1;
-	float	x;
-	float	x1;
-	float	y;
-	float	y1;
-	float	z;
-	float	z1;
-	float	phi;
-	void	*mlx;
-	void	*mlx_win;
+	double	shy;
+	double	shx;
+	double	dz;
+	double	dz1;
+	double	x;
+	double	x1;
+	double	y;
+	double	y1;
+	double	z;
+	double	z1;
+	double	phi;
+	double	cell_x;
+	double	cell_y;
 }				t_param;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

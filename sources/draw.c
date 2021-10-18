@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-static float	absol(float a)
+static double	absol(double a)
 {
 	if (a >= 0)
 		return (a);
@@ -20,7 +20,7 @@ static float	absol(float a)
 		return (-a);
 }
 
-static float	maxim(float a, float b)
+static double	maxim(double a, double b)
 {
 	if (a > b || a == b)
 		return (a);
@@ -30,11 +30,11 @@ static float	maxim(float a, float b)
 
 void	drawing_lines(t_param *grid, t_data *img)
 {
-	float	dx;
-	float	dy;
-	float	x;
-	float	y;
-	int		norm;
+	double	dx;
+	double	dy;
+	double	x;
+	double	y;
+	double	norm;
 
 	grid->x1 *= grid->cell_x;
 	grid->y1 *= grid->cell_y;
@@ -99,13 +99,13 @@ void	matrix_works(t_param **grid, int **matrix)
 	if ((*grid)->dim_y < 50)
 		(*grid)->cell_y = 25;
 	else if ((*grid)->dim_y >= 50 && (*grid)->dim_y <= 310)
-		(*grid)->cell_y = (*grid)->win_y / (*grid)->dim_y;
+		(*grid)->cell_y = (double)(*grid)->win_y / (*grid)->dim_y;
 	else
 		(*grid)->cell_y = 3;
 	if ((*grid)->dim_x < 50)
 		(*grid)->cell_x = 25;
 	else if ((*grid)->dim_x >= 50 && (*grid)->dim_x <= 310)
-		(*grid)->cell_x = (*grid)->win_x / (*grid)->dim_x;
+		(*grid)->cell_x = (double)(*grid)->win_x / (*grid)->dim_x;
 	else
 		(*grid)->cell_x = 3;
 	get_z_dim(grid, matrix);

@@ -7,6 +7,7 @@ add_executable(
         fdf
         sources/main.c
         fdf.h
+        mlx/mlx.h
         sources/get_map.c
         sources/get_next_line.c
         libft/ft_atoi.c
@@ -19,4 +20,4 @@ add_executable(
         sources/draw.c
         sources/utils.c
         sources/hooksnwins.c
-                )
+        keycode_mac.h)

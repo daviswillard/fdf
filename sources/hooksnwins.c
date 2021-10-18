@@ -3,7 +3,8 @@
 
 int	key_hook(int keycode, t_param *grid)
 {
-	if (keycode == 53)
+	(void)grid;
+	if (keycode == KEY_ESCAPE)
 		exit(0);
 	return (0);
 }
