@@ -38,7 +38,7 @@ void	assign_coord(t_param **grid, int call, int **matrix)
 	basis(grid);
 }
 
-static void	read_matrix(t_param **grid, int **matrix, t_data *img)
+void	read_matrix(t_param **grid, int **matrix, t_data *img)
 {
 	shift(grid, matrix);
 	(*grid)->cur_y = 0;
@@ -77,13 +77,12 @@ static void	param_init(t_param **grid)
 	(*grid)->x1 = 0;
 	(*grid)->y1 = 0;
 	(*grid)->z1 = 0;
-	(*grid)->phi = PI / 4;
+	(*grid)->ang = PI / 4;
 }
 
 int	main(int argc, char **argv)
 {
-	int		**matrix;
-	t_data	img;
+
 	t_param	*grid;
 
 	if (argc != 2)
@@ -92,15 +91,15 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	param_init(&grid);
-	matrix = read_map(argv, &grid);
+	grid->matrix = read_map(argv, &grid);
 	grid->mlx = mlx_init();
-	matrix_works(&grid, matrix);
+	matrix_works(&grid, grid->matrix);
 	grid->mlx_win = mlx_new_window(grid->mlx, grid->win_x, grid->win_y, "FdF");
-	img.img = mlx_new_image(grid->mlx, grid->win_x, grid->win_y);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-			&img.endian);
-	read_matrix(&grid, matrix, &img);
-	mlx_put_image_to_window(grid->mlx, grid->mlx_win, img.img, 0, 0);
+	grid->img.img = mlx_new_image(grid->mlx, grid->win_x, grid->win_y);
+	grid->img.addr = mlx_get_data_addr(grid->img.img,
+		&grid->img.bits_per_pixel, &grid->img.line_length, &grid->img.endian);
+	read_matrix(&grid, grid->matrix, &grid->img);
+	mlx_put_image_to_window(grid->mlx, grid->mlx_win, grid->img.img, 0, 0);
 	mlx_hook(grid->mlx_win, KEYPRESS, 0, key_hook, grid);
 	mlx_loop(grid->mlx);
 	return (0);

@@ -44,6 +44,7 @@ typedef struct s_fdf
 	int		cur_y;
 	int		win_x;
 	int		win_y;
+	int		**matrix;
 	double	shy;
 	double	shx;
 	double	dz;
@@ -54,18 +55,21 @@ typedef struct s_fdf
 	double	y1;
 	double	z;
 	double	z1;
-	double	phi;
+	double	ang;
 	double	cell_x;
 	double	cell_y;
+	t_data	img;
 }				t_param;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, t_param *grid);
 
 int		**read_map(char **argv, t_param **grid);
 
 void	shift(t_param **grid, int **matrix);
 
 void	matrix_works(t_param **grid, int **matrix);
+
+void	read_matrix(t_param **grid, int **matrix, t_data *img);
 
 void	drawing_lines(t_param *grid, t_data *img);
 

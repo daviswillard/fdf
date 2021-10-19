@@ -34,9 +34,9 @@ void	basis(t_param **grid)
 	double	ty;
 	double	tx1;
 	double	ty1;
-	double	phi;
+	double	ang;
 
-	phi = (*grid)->phi;
+	ang = (*grid)->ang;
 	tx = (*grid)->x;
 	ty = (*grid)->y;
 	tx1 = (*grid)->x1;
@@ -45,10 +45,10 @@ void	basis(t_param **grid)
 		(*grid)->dz = 1;
 	(*grid)->z *= ((*grid)->dz1 / (*grid)->dz);
 	(*grid)->z1 *= ((*grid)->dz1 / (*grid)->dz);
-	(*grid)->x = tx * cos(phi) + ty * sin(phi);
-	(*grid)->y = -tx * sin(phi) + ty * cos(phi) - (*grid)->z;
-	(*grid)->x1 = tx1 * cos(phi) + ty1 * sin(phi);
-	(*grid)->y1 = -tx1 * sin(phi) + ty1 * cos(phi) - (*grid)->z1;
+	(*grid)->x = tx * cos(ang) + ty * sin(ang);
+	(*grid)->y = -tx * sin(ang) + ty * cos(ang) - (*grid)->z;
+	(*grid)->x1 = tx1 * cos(ang) + ty1 * sin(ang);
+	(*grid)->y1 = -tx1 * sin(ang) + ty1 * cos(ang) - (*grid)->z1;
 }
 
 char	*ft_strjoin_fdf(char *s1, char *s2)
@@ -79,10 +79,14 @@ char	*ft_strjoin_fdf(char *s1, char *s2)
 	return (ret);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, t_param *grid)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (x < grid->win_x && x >= 0 && y < grid->win_y && y >= 0)
+	{
+		dst = data->addr + (y * data->line_length + x
+				* (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = 0xFFFFFF;
+	}
 }
