@@ -23,9 +23,10 @@ void	shift(t_param **grid, int **matrix)
 	else
 		(*grid)->cur_y = (*grid)->dim_y / 2;
 	assign_coord(grid, 0, matrix);
-	(*grid)->shx = (*grid)->win_x / 2 - (*grid)->x * (*grid)->cell_x;
-	(*grid)->shy = (*grid)->win_y / 2 - ((*grid)->y + (*grid)->z)
-		* (*grid)->cell_y;
+	(*grid)->shx = (double)(*grid)->win_x / 2 - (*grid)->x * (*grid)->cell_x
+		+ 2 * (*grid)->sshx;
+	(*grid)->shy = (double)(*grid)->win_y / 2 - ((*grid)->y + (*grid)->z)
+		* (*grid)->cell_y + 2 * (*grid)->sshy;
 }
 
 void	basis(t_param **grid)

@@ -70,7 +70,10 @@ static void	param_init(t_param **grid)
 	(*grid)->cur_x = 0;
 	(*grid)->cur_y = 0;
 	(*grid)->cell_x = 0;
+	(*grid)->sshx = 0;
+	(*grid)->sshy = 0;
 	(*grid)->cell_y = 0;
+	(*grid)->trspd = 1;
 	(*grid)->x = 0;
 	(*grid)->y = 0;
 	(*grid)->z = 0;
@@ -82,7 +85,6 @@ static void	param_init(t_param **grid)
 
 int	main(int argc, char **argv)
 {
-
 	t_param	*grid;
 
 	if (argc != 2)
@@ -97,7 +99,8 @@ int	main(int argc, char **argv)
 	grid->mlx_win = mlx_new_window(grid->mlx, grid->win_x, grid->win_y, "FdF");
 	grid->img.img = mlx_new_image(grid->mlx, grid->win_x, grid->win_y);
 	grid->img.addr = mlx_get_data_addr(grid->img.img,
-		&grid->img.bits_per_pixel, &grid->img.line_length, &grid->img.endian);
+			&grid->img.bits_per_pixel, &grid->img.line_length,
+			&grid->img.endian);
 	read_matrix(&grid, grid->matrix, &grid->img);
 	mlx_put_image_to_window(grid->mlx, grid->mlx_win, grid->img.img, 0, 0);
 	mlx_hook(grid->mlx_win, KEYPRESS, 0, key_hook, grid);

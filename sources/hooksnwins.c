@@ -12,21 +12,24 @@
 
 #include "../fdf.h"
 
-void arrow_press(int keycode, t_param *grid)
+static void	arrow_press(int keycode, t_param *grid)
 {
 	if (keycode == KEY_UP)
-		grid->shy -= grid->win_y * grid->dim_y * 0.05;
+		grid->sshy += 10 * grid->trspd;
 	else if (keycode == KEY_DOWN)
-		grid->shy += grid->win_y * grid->dim_y * 0.05;
+		grid->sshy -= 10 * grid->trspd;
 	else if (keycode == KEY_LEFT)
-		grid->shx -= grid->win_x * grid->dim_x * 0.05;
+		grid->sshx += 10 * grid->trspd;
 	else if (keycode == KEY_RIGHT)
-		grid->shx += grid->win_x * grid->dim_x * 0.05;
+		grid->sshx -= 10 * grid->trspd;
+	else if (keycode == KEY_S)
+		grid->trspd += 0.5;
+	else if (keycode == KEY_A && grid->trspd > 0.5)
+		grid->trspd -= 0.5;
 }
 
 int	key_hook(int keycode, t_param *grid)
 {
-	(void)grid;
 	if (keycode == KEY_ESCAPE)
 		exit(0);
 	else if (keycode == KEY_PAD_ADD)
@@ -39,7 +42,8 @@ int	key_hook(int keycode, t_param *grid)
 		grid->cell_x *= 0.95;
 		grid->cell_y *= 0.95;
 	}
-	else if (keycode >= 123 && keycode <= 126)
+	else if ((keycode >= 123 && keycode <= 126) || keycode == KEY_S
+		|| keycode == KEY_A)
 		arrow_press(keycode, grid);
 	mlx_destroy_image(grid->mlx, grid->img.img);
 	grid->img.img = mlx_new_image(grid->mlx, grid->win_x, grid->win_y);

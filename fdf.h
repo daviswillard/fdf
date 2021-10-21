@@ -16,11 +16,13 @@
 # define PI 3.14159
 # define BUFFER_SIZE 100
 
-# include <stdio.h>
+
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include "mlx/mlx.h"
 # include "keycode_mac.h"
 # include "libft/libft.h"
@@ -47,6 +49,9 @@ typedef struct s_fdf
 	int		**matrix;
 	double	shy;
 	double	shx;
+	double	sshy;
+	double	sshx;
+	double	trspd;
 	double	dz;
 	double	dz1;
 	double	x;
