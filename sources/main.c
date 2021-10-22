@@ -64,7 +64,7 @@ static void	param_init(t_param **grid)
 {
 	*grid = malloc(sizeof(t_param));
 	if (!*grid)
-		exit(-1);
+		exit(errno);
 	(*grid)->dim_x = 0;
 	(*grid)->dim_y = 0;
 	(*grid)->cur_x = 0;

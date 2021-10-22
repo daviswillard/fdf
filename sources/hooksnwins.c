@@ -35,7 +35,7 @@ static void	zoom(t_param *grid, int keycode)
 		grid->cell_x *= 1.05;
 		grid->cell_y *= 1.05;
 	}
-	else if (keycode == KEY_PAD_SUB)
+	else
 	{
 		grid->cell_x *= 0.95;
 		grid->cell_y *= 0.95;
@@ -49,7 +49,7 @@ int	key_hook(int keycode, t_param *grid)
 	if (!reset)
 		copy_param(grid, &reset);
 	if (keycode == KEY_ESCAPE)
-		exit(0);
+		exit(errno);
 	else if (keycode == KEY_PAD_ADD || keycode == KEY_PAD_SUB)
 		zoom(grid, keycode);
 	else if ((keycode >= 123 && keycode <= 126) || keycode == KEY_S
