@@ -28,11 +28,9 @@ static void	arrow_press(int keycode, t_param *grid)
 		grid->trspd -= 0.5;
 }
 
-int	key_hook(int keycode, t_param *grid)
+static void	zoom(t_param *grid, int keycode)
 {
-	if (keycode == KEY_ESCAPE)
-		exit(0);
-	else if (keycode == KEY_PAD_ADD)
+	if (keycode == KEY_PAD_ADD)
 	{
 		grid->cell_x *= 1.05;
 		grid->cell_y *= 1.05;
@@ -42,9 +40,23 @@ int	key_hook(int keycode, t_param *grid)
 		grid->cell_x *= 0.95;
 		grid->cell_y *= 0.95;
 	}
+}
+
+int	key_hook(int keycode, t_param *grid)
+{
+	static t_param	*reset = NULL;
+
+	if (!reset)
+		copy_param(grid, &reset);
+	if (keycode == KEY_ESCAPE)
+		exit(0);
+	else if (keycode == KEY_PAD_ADD || keycode == KEY_PAD_SUB)
+		zoom(grid, keycode);
 	else if ((keycode >= 123 && keycode <= 126) || keycode == KEY_S
 		|| keycode == KEY_A)
 		arrow_press(keycode, grid);
+	else if (keycode == KEY_R)
+		copy_param(reset, &grid);
 	mlx_destroy_image(grid->mlx, grid->img.img);
 	grid->img.img = mlx_new_image(grid->mlx, grid->win_x, grid->win_y);
 	read_matrix(&grid, grid->matrix, &grid->img);

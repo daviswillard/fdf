@@ -12,6 +12,24 @@
 
 #include "../fdf.h"
 
+void	copy_param(t_param *src, t_param **dst)
+{
+	if (!*dst)
+		*dst = malloc(sizeof(t_param));
+	if (!*dst)
+		exit(errno);
+	(*dst)->dim_x = src->dim_x;
+	(*dst)->dim_y = src->dim_y;
+	(*dst)->cell_x = src->cell_x;
+	(*dst)->cell_y = src->cell_y;
+	(*dst)->sshx = src->sshx;
+	(*dst)->sshy = src->sshy;
+	(*dst)->shx = src->shx;
+	(*dst)->shy = src->shy;
+	(*dst)->ang = src->ang;
+	(*dst)->trspd = src->trspd;
+}
+
 void	shift(t_param **grid, int **matrix)
 {
 	if ((*grid)->dim_x % 2)

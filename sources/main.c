@@ -70,9 +70,9 @@ static void	param_init(t_param **grid)
 	(*grid)->cur_x = 0;
 	(*grid)->cur_y = 0;
 	(*grid)->cell_x = 0;
+	(*grid)->cell_y = 0;
 	(*grid)->sshx = 0;
 	(*grid)->sshy = 0;
-	(*grid)->cell_y = 0;
 	(*grid)->trspd = 1;
 	(*grid)->x = 0;
 	(*grid)->y = 0;

@@ -88,4 +88,6 @@ int		get_next_line(int fd, char **line);
 
 int		key_hook(int keycode, t_param *grid);
 
+void	copy_param(t_param *src, t_param **dst);
+
 #endif
