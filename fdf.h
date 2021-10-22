@@ -16,7 +16,6 @@
 # define PI 3.14159
 # define BUFFER_SIZE 100
 
-
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -26,7 +25,7 @@
 # include "keycode_mac.h"
 # include "libft/libft.h"
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;

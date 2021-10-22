@@ -52,7 +52,7 @@ static char	*read_line(int *x_axis, int *y_axis, int fd, char *buf)
 		map_x(x_axis, line);
 		temp = buf;
 		buf = ft_strjoin_fdf(buf, line);
-		if (errno)
+		if (!buf || control < 0)
 			exit(errno);
 		(*y_axis)++;
 		free(temp);
@@ -88,14 +88,14 @@ static int	**assign_matrix(int x_axis, int y_axis, char *line)
 	int		**ret;
 
 	ret = malloc(sizeof(*ret) * (x_axis + y_axis) + 1);
-	if (errno)
+	if (!ret)
 		exit(errno);
 	y_temp = 0;
 	while (y_temp < y_axis)
 	{
 		x_temp = 0;
 		ret[y_temp] = malloc(sizeof(**ret) * x_axis);
-		if (errno)
+		if (!ret[y_temp])
 			exit(errno);
 		while (x_temp < x_axis)
 		{
@@ -121,7 +121,7 @@ int	**read_map(char **argv, t_param **grid)
 	y_axis = 0;
 	fd = open(argv[1], O_RDONLY);
 	line = ft_strdup("");
-	if (errno)
+	if (!line || fd < 0)
 		exit(errno);
 	line = read_line(&x_axis, &y_axis, fd, line);
 	close(fd);
